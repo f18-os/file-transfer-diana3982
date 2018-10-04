@@ -11,17 +11,17 @@ ifFileFound = 0
 while True:
     print('... waiting to connect ...')
     connection, client_add = sock.accept()
-    print('connected to ' + client_add)
     recievedFile = connection.recv(1024)
-    for file in os.listdir("files/"):
+    currDir = os.getcwd()
+    for file in os.listdir(currDir):
         if file == recievedFile:
             recievedFile = 1
             break
     if recievedFile == 0:
         print recievedFile + (" could not be found on the server")
     else:
-        print(recievedFile+ " was found!")
-        uploadFile = open("files/"+recievedFile,"rb")
+        print(str(recievedFile)+ " was found!")
+        uploadFile = open(currDirrecievedFile,"rb")
         readFile = uploadFile.read(1024)
         while readFile:
             connection.send(readFile)
